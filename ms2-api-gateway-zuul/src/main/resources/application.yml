@@ -1,0 +1,54 @@
+server:
+  port: 8003
+#  servlet:
+#    context-path: /TOKEN-SERVICE-WEB/ 
+ 
+spring:
+  application:
+    name: zuul-api-gateway
+
+
+eureka:
+  client:
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+  instance:
+    hostname: localhost
+    
+ribbon:
+  eureka:
+    enabled: true
+    
+zuul:
+  host:
+    time-to-live: -1
+    connect-timeout-millis: 60000
+    max-per-route-connections: 10000
+    max-total-connections: 50000
+    socket-timeout-millis: 60000
+  semaphore:
+    max-semaphores: 500
+  ribbon:
+    eager-load:
+      enabled: true
+  prefix: /api
+  routes:
+    eureka-client:
+      path: /micro1/**
+      serviceId: EUREKA-CLIENT
+      #url: http://localhost:8001
+    serviceB:
+      path: /micro2/**
+      serviceId: HELLO-CLIENT
+      
+      
+      
+# hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 30000
+

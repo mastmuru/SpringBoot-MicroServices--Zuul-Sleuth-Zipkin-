@@ -1,0 +1,4 @@
+spring.config.import=configserver
+spring.cloud.config.uri=http://localhost:8082
+spring.cloud.config.name=profilemanagement
+spring.cloud.config.profile=active
